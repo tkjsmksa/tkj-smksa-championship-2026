@@ -1,0 +1,41 @@
+PRAGMA foreign_keys = ON;
+CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS teams (
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ name TEXT NOT NULL UNIQUE,
+ short_name TEXT DEFAULT '',
+ group_name TEXT NOT NULL CHECK(group_name IN ('A','B')),
+ logo_url TEXT DEFAULT '',
+ active INTEGER NOT NULL DEFAULT 1,
+ created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS matches (
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ sport TEXT NOT NULL CHECK(sport IN ('Mobile Legends','PES')),
+ stage TEXT NOT NULL DEFAULT 'Group',
+ group_name TEXT DEFAULT '',
+ round_name TEXT DEFAULT '',
+ match_no INTEGER DEFAULT 0,
+ date TEXT NOT NULL,
+ time TEXT NOT NULL DEFAULT '15:00',
+ venue TEXT DEFAULT '',
+ team_a_id INTEGER,
+ team_b_id INTEGER,
+ score_a INTEGER,
+ score_b INTEGER,
+ status TEXT NOT NULL DEFAULT 'Scheduled'
+   CHECK(status IN ('Scheduled','Live','Finished','Postponed','Cancelled')),
+ notes TEXT DEFAULT '',
+ created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ FOREIGN KEY(team_a_id) REFERENCES teams(id) ON DELETE SET NULL,
+ FOREIGN KEY(team_b_id) REFERENCES teams(id) ON DELETE SET NULL
+);
+CREATE INDEX IF NOT EXISTS idx_matches_date ON matches(date,time);
+CREATE TABLE IF NOT EXISTS admin_audit (
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ action TEXT NOT NULL,
+ target TEXT DEFAULT '',
+ details TEXT DEFAULT '',
+ created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

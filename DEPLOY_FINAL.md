@@ -1,0 +1,12 @@
+# DEPLOY FINAL
+- D1 dibuat.
+- `schema.sql` dijalankan.
+- `seed.sql` dijalankan.
+- `wrangler.toml` diisi Database ID.
+- Upload ISI folder project ke GitHub.
+- Cloudflare Pages -> Connect to Git -> pilih repo.
+- Build output: `public`, build command kosong.
+- Bind D1: variable `DB` -> database `tkj-smksa`.
+- Secret: `ADMIN_PASSWORD`.
+- Redeploy.
+- Login di `/admin.html`.
