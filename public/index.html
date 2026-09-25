@@ -44,7 +44,7 @@ function renderNews(){$('#newsBox').innerHTML=D.articles.map(articleCard).join('
   const current=document.querySelector('.page:not(.hidden)');
   if(current) renderPage(current.id);
   window.scrollTo(0,0);
-};$$('.tab').forEach(b=>b.onclick=()=>go(b.dataset.p));fetch('/api/public').then(r=>r.json()).then(j=>{if(j.error)throw Error(j.error);D=j;GID=D.games[0]?.id;renderHome()}).catch(e=>document.body.innerHTML='<div class=wrap><div class=card>Gagal memuat data: '+esc(e.message)+'</div></div>');ssetInterval(async()=>{
+};;$$('.tab').forEach(b=>b.onclick=()=>go(b.dataset.p));fetch('/api/public').then(r=>r.json()).then(j=>{if(j.error)throw Error(j.error);D=j;GID=D.games[0]?.id;renderHome()}).catch(e=>document.body.innerHTML='<div class=wrap><div class=card>Gagal memuat data: '+esc(e.message)+'</div></div>');ssetInterval(async()=>{
   try{
     const r=await fetch('/api/public',{cache:'no-store'});
     const j=await r.json();
