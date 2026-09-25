@@ -51,7 +51,7 @@ export async function onRequestGet({env}){
       matches:m.results||[],
       articles:a.results||[],
       server_time:new Date().toISOString()
-    });
+    },200,{"Cache-Control":"no-store, no-cache, must-revalidate, max-age=0"});
 
   }catch(e){
     return json({error:e.message},500)
