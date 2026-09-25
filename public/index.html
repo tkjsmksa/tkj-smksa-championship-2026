@@ -39,5 +39,27 @@ function renderStand(){buttons('#standGames');const gs=game();$('#standingsBox')
 function renderTeams(){buttons('#teamGames');const gs=game();$('#teamsBox').innerHTML=D.teams.filter(t=>t.game_id===gs.id).map(t=>`<div class=card><div class=teamcell>${t.logo_url?`<img class=teamlogo src="${esc(t.logo_url)}">`:''}<div><h3 style="margin:0">${esc(t.name)}</h3><div class=muted>${esc(t.short_name||'')} · ${esc(D.groups.find(x=>x.id===t.group_id)?.name||'')}</div><div class=muted>${esc(t.institution||'')}${t.captain?' · Kapten: '+esc(t.captain):''}</div></div></div></div>`).join('')||'<div class=empty>Belum ada tim.</div>'}
 function renderSchedule(){buttons('#schedGames');const gs=game();$('#matchesBox').innerHTML=D.matches.filter(m=>m.game_id===gs.id).map(matchCard).join('')||'<div class=empty>Belum ada pertandingan.</div>'}
 function renderBracket(){buttons('#bracketGames');const gs=game(),groups=D.groups.filter(x=>x.game_id===gs.id),qualified=groups.flatMap(gr=>rowsFor(gs.id,gr.id).slice(0,Math.max(0,gr.advance_count)));const actual=D.matches.filter(m=>m.game_id===gs.id&&['Qualifier','Quarterfinal','Semifinal','Final','Third Place'].includes(m.stage));const power=qualified.length>=8?8:qualified.length>=4?4:qualified.length>=2?2:0;let note=qualified.length?`${qualified.length} tim lolos sementara. Bagan proyeksi menyesuaikan jumlah tim yang lolos per grup.`:'Belum ada tim yang lolos sementara.';let slots=[];for(let i=0;i<qualified.length;i+=2)slots.push(`<div class=bm><div class=muted>Pasangan ${Math.floor(i/2)+1}</div><div class=tr>${teamCell(qualified[i]?.t)}<b>—</b></div><div class=tr>${teamCell(qualified[i+1]?.t)}<b>—</b></div></div>`);const actualHtml=actual.length?actual.map(matchCard).join(''):'<div class=empty>Belum ada pertandingan knockout yang dijadwalkan.</div>';$('#bracketBox').innerHTML=`<div class=card><p class=muted>${note} ${power?`Dengan ${qualified.length} peserta, babak berikutnya memakai ${power} slot standar; jika jumlahnya bukan 2/4/8, panitia dapat menambah babak Qualifier dan mengatur pasangan di Admin.`:''}</p><div class=bracket><div><h3>Peserta Lolos</h3>${slots.join('')||'<div class=empty>Belum ada data.</div>'}</div><div><h3>Knockout</h3>${actualHtml}</div><div><h3>Final</h3><div class=bm>Final mengikuti pertandingan knockout yang dibuat panitia.</div></div><div><h3>Juara 3</h3><div class=bm>Opsional melalui pertandingan Third Place.</div></div></div></div>`}
-function renderNews(){$('#newsBox').innerHTML=D.articles.map(articleCard).join('')||'<div class=empty>Belum ada berita.</div>'}function renderPage(p){if(p==='home'||p==='info')renderHome();if(p==='standings')renderStand();if(p==='teams')renderTeams();if(p==='schedule')renderSchedule();if(p==='bracket')renderBracket();if(p==='news')renderNews()}window.setGame=id=>{GID=id;renderPage(document.querySelector('.page:not(.hidden)').id)};$$('.tab').forEach(b=>b.onclick=()=>go(b.dataset.p));fetch('/api/public').then(r=>r.json()).then(j=>{if(j.error)throw Error(j.error);D=j;GID=D.games[0]?.id;renderHome()}).catch(e=>document.body.innerHTML='<div class=wrap><div class=card>Gagal memuat data: '+esc(e.message)+'</div></div>');setInterval(()=>location.reload(),15000);
+function renderNews(){$('#newsBox').innerHTML=D.articles.map(articleCard).join('')||'<div class=empty>Belum ada berita.</div>'}function renderPage(p){if(p==='home'||p==='info')renderHome();if(p==='standings')renderStand();if(p==='teams')renderTeams();if(p==='schedule')renderSchedule();if(p==='bracket')renderBracket();if(p==='news')renderNews()}window.setGame=id=>{
+  GID=id;
+  const current=document.querySelector('.page:not(.hidden)');
+  if(current) renderPage(current.id);
+  window.scrollTo(0,0);
+};$$('.tab').forEach(b=>b.onclick=()=>go(b.dataset.p));fetch('/api/public').then(r=>r.json()).then(j=>{if(j.error)throw Error(j.error);D=j;GID=D.games[0]?.id;renderHome()}).catch(e=>document.body.innerHTML='<div class=wrap><div class=card>Gagal memuat data: '+esc(e.message)+'</div></div>');ssetInterval(async()=>{
+  try{
+    const r=await fetch('/api/public',{cache:'no-store'});
+    const j=await r.json();
+    if(j.error) return;
+
+    D=j;
+
+    if(!D.games.some(g=>g.id===GID)){
+      GID=D.games[0]?.id;
+    }
+
+    const current=document.querySelector('.page:not(.hidden)');
+    if(current) renderPage(current.id);
+  }catch(e){
+    console.error(e);
+  }
+},15000);
 </script></body></html>
