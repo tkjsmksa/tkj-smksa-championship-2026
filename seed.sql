@@ -1,41 +1,53 @@
-DELETE FROM settings;
-DELETE FROM teams;
-DELETE FROM matches;
-DELETE FROM admin_audit;
+PRAGMA foreign_keys = ON;
+DELETE FROM settings; DELETE FROM matches; DELETE FROM teams; DELETE FROM groups_; DELETE FROM games; DELETE FROM articles; DELETE FROM admin_audit;
 INSERT INTO settings(key,value) VALUES
-('event_name','TKJ SMKSA CHAMPIONSHIP 2026'),
-('organizer','TKJ SMKSA'),
-('subtitle','Mobile Legends & Pro Evolution Soccer'),
-('location','SMKSA'),
-('status','Penyisihan Grup'),
-('primary_color','#7c3aed'),
-('secondary_color','#06b6d4'),
-('win_points','3'),('draw_points','1'),('loss_points','0'),
-('advance_per_group','2'),('public_refresh_seconds','15');
-INSERT INTO teams(name,short_name,group_name) VALUES ("Tim 01","T01","A");
-INSERT INTO teams(name,short_name,group_name) VALUES ("Tim 02","T02","A");
-INSERT INTO teams(name,short_name,group_name) VALUES ("Tim 03","T03","A");
-INSERT INTO teams(name,short_name,group_name) VALUES ("Tim 04","T04","A");
-INSERT INTO teams(name,short_name,group_name) VALUES ("Tim 05","T05","A");
-INSERT INTO teams(name,short_name,group_name) VALUES ("Tim 06","T06","A");
-INSERT INTO teams(name,short_name,group_name) VALUES ("Tim 07","T07","B");
-INSERT INTO teams(name,short_name,group_name) VALUES ("Tim 08","T08","B");
-INSERT INTO teams(name,short_name,group_name) VALUES ("Tim 09","T09","B");
-INSERT INTO teams(name,short_name,group_name) VALUES ("Tim 10","T10","B");
-INSERT INTO teams(name,short_name,group_name) VALUES ("Tim 11","T11","B");
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("Mobile Legends",'Group',"A",'Penyisihan',1,"2026-10-29","15:00",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("PES",'Group',"B",'Penyisihan',2,"2026-10-29","16:30",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("PES",'Group',"A",'Penyisihan',3,"2026-11-05","15:00",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("Mobile Legends",'Group',"B",'Penyisihan',4,"2026-11-05","16:30",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("Mobile Legends",'Group',"A",'Penyisihan',5,"2026-11-12","15:00",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("PES",'Group',"B",'Penyisihan',6,"2026-11-12","16:30",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("PES",'Group',"A",'Penyisihan',7,"2026-11-19","15:00",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("Mobile Legends",'Group',"B",'Penyisihan',8,"2026-11-19","16:30",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("Mobile Legends",'Group',"A",'Penyisihan',9,"2026-11-26","15:00",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("PES",'Group',"B",'Penyisihan',10,"2026-11-26","16:30",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("PES",'Group',"A",'Penyisihan',11,"2026-12-03","15:00",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("Mobile Legends",'Group',"B",'Penyisihan',12,"2026-12-03","16:30",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("Mobile Legends",'Group',"A",'Penyisihan',13,"2026-12-10","15:00",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("PES",'Group',"B",'Penyisihan',14,"2026-12-10","16:30",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("PES",'Group',"A",'Penyisihan',15,"2026-12-17","15:00",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
-INSERT INTO matches(sport,stage,group_name,round_name,match_no,date,time,venue,status,notes) VALUES ("Mobile Legends",'Group',"B",'Penyisihan',16,"2026-12-17","16:30",'Aula / Lab TKJ','Scheduled','Data awal; edit di Admin');
+('event_name','TKJ SMKSA CHAMPIONSHIP 2026'),('organizer','TKJ SMKSA'),('subtitle','Turnamen e-sports sekolah'),('location','SMKSA'),('status','Penyisihan Grup'),('site_logo_url',''),('banner_url',''),('primary_color','#7c3aed'),('secondary_color','#06b6d4'),('win_points','3'),('draw_points','1'),('loss_points','0'),('public_refresh_seconds','15'),('hero_title','TKJ SMKSA CHAMPIONSHIP 2026'),('hero_description','Portal resmi jadwal, klasemen, hasil, berita, dan bagan turnamen.'),('school_calendar','Kaldik Jawa Tengah 2026/2027');
+INSERT INTO games(name,short_name,slug,display_order,rules_text,format_text,win_points,draw_points,loss_points) VALUES ('Mobile Legends','ML','mobile-legends',1,'Aturan Mobile Legends diatur panitia.','Penyisihan grup + knockout',3,0,0),('Pro Evolution Soccer','PES','pro-evolution-soccer',2,'Aturan PES diatur panitia.','Penyisihan grup + knockout',3,1,0);
+INSERT INTO groups_(game_id,name,display_order,advance_count) VALUES (1,'Grup A',1,2),(1,'Grup B',2,2),(2,'Grup A',1,2),(2,'Grup B',2,2);
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (1,1,'Tim 01','T01','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (1,1,'Tim 02','T02','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (1,1,'Tim 03','T03','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (1,1,'Tim 04','T04','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (1,1,'Tim 05','T05','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (1,1,'Tim 06','T06','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (1,2,'Tim 07','T07','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (1,2,'Tim 08','T08','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (1,2,'Tim 09','T09','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (1,2,'Tim 10','T10','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (1,2,'Tim 11','T11','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (2,3,'Tim 01','T01','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (2,3,'Tim 02','T02','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (2,3,'Tim 03','T03','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (2,3,'Tim 04','T04','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (2,3,'Tim 05','T05','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (2,3,'Tim 06','T06','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (2,4,'Tim 07','T07','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (2,4,'Tim 08','T08','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (2,4,'Tim 09','T09','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (2,4,'Tim 10','T10','SMKSA','','');
+INSERT INTO teams(game_id,group_id,name,short_name,institution,captain,participant_info) VALUES (2,4,'Tim 11','T11','SMKSA','','');
+INSERT INTO articles(title,excerpt,content,published,published_at) VALUES ('Selamat Datang di Portal Turnamen','Portal resmi turnamen TKJ SMKSA Championship 2026.','Informasi, jadwal, klasemen, hasil pertandingan, dan berita turnamen akan diperbarui oleh panitia.',1,'2026-09-25T00:00:00');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (1,1,'Group','Penyisihan',1,'2026-11-12','15:00','Aula / Lab TKJ','Scheduled',1,2,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (1,1,'Group','Penyisihan',2,'2026-11-12','16:30','Aula / Lab TKJ','Scheduled',5,6,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (2,4,'Group','Penyisihan',3,'2026-11-12','15:00','Aula / Lab TKJ','Scheduled',18,19,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (2,3,'Group','Penyisihan',4,'2026-11-12','16:30','Aula / Lab TKJ','Scheduled',14,15,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (1,1,'Group','Penyisihan',5,'2026-11-19','15:00','Aula / Lab TKJ','Scheduled',3,4,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (1,1,'Group','Penyisihan',6,'2026-11-19','16:30','Aula / Lab TKJ','Scheduled',1,5,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (2,4,'Group','Penyisihan',7,'2026-11-19','15:00','Aula / Lab TKJ','Scheduled',20,21,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (2,3,'Group','Penyisihan',8,'2026-11-19','16:30','Aula / Lab TKJ','Scheduled',12,16,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (1,1,'Group','Penyisihan',9,'2026-11-26','15:00','Aula / Lab TKJ','Scheduled',5,6,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (1,1,'Group','Penyisihan',10,'2026-11-26','16:30','Aula / Lab TKJ','Scheduled',2,4,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (2,4,'Group','Penyisihan',11,'2026-11-26','15:00','Aula / Lab TKJ','Scheduled',22,18,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (2,4,'Group','Penyisihan',12,'2026-11-26','16:30','Aula / Lab TKJ','Scheduled',13,15,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (1,1,'Group','Penyisihan',13,'2026-12-03','15:00','Aula / Lab TKJ','Scheduled',1,3,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (1,2,'Group','Penyisihan',14,'2026-12-03','16:30','Aula / Lab TKJ','Scheduled',5,6,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (2,4,'Group','Penyisihan',15,'2026-12-03','15:00','Aula / Lab TKJ','Scheduled',19,21,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (2,4,'Group','Penyisihan',16,'2026-12-03','16:30','Aula / Lab TKJ','Scheduled',14,17,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (1,1,'Group','Penyisihan',17,'2026-12-10','15:00','Aula / Lab TKJ','Scheduled',2,5,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (1,2,'Group','Penyisihan',18,'2026-12-10','16:30','Aula / Lab TKJ','Scheduled',3,6,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (2,4,'Group','Penyisihan',19,'2026-12-10','15:00','Aula / Lab TKJ','Scheduled',18,20,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (2,4,'Group','Penyisihan',20,'2026-12-10','16:30','Aula / Lab TKJ','Scheduled',12,15,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (1,1,'Group','Penyisihan',21,'2026-12-17','15:00','Aula / Lab TKJ','Scheduled',4,6,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (1,2,'Group','Penyisihan',22,'2026-12-17','16:30','Aula / Lab TKJ','Scheduled',1,6,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (2,4,'Group','Penyisihan',23,'2026-12-17','15:00','Aula / Lab TKJ','Scheduled',22,19,'Dummy jadwal V3 - edit di Admin');
+INSERT INTO matches(game_id,group_id,stage,round_name,match_no,date,time,venue,status,team_a_id,team_b_id,notes) VALUES (2,3,'Group','Penyisihan',24,'2026-12-17','16:30','Aula / Lab TKJ','Scheduled',13,16,'Dummy jadwal V3 - edit di Admin');

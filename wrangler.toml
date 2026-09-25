@@ -6,3 +6,8 @@ pages_build_output_dir = "public"
 binding = "DB"
 database_name = "tkj-smksa"
 database_id = "5f3d6af0-593d-4d13-ab43-4e1d36fa61dd"
+
+# Setelah membuat bucket R2 bernama tkj-smksa-media, aktifkan binding ini di Cloudflare Pages:
+# [[r2_buckets]]
+# binding = "MEDIA"
+# bucket_name = "tkj-smksa-media"

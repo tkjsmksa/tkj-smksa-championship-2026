@@ -1,19 +1,50 @@
 PRAGMA foreign_keys = ON;
 CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS teams (
+CREATE TABLE IF NOT EXISTS games (
  id INTEGER PRIMARY KEY AUTOINCREMENT,
  name TEXT NOT NULL UNIQUE,
  short_name TEXT DEFAULT '',
- group_name TEXT NOT NULL CHECK(group_name IN ('A','B')),
+ slug TEXT NOT NULL UNIQUE,
  logo_url TEXT DEFAULT '',
  active INTEGER NOT NULL DEFAULT 1,
+ display_order INTEGER NOT NULL DEFAULT 0,
+ rules_text TEXT DEFAULT '',
+ format_text TEXT DEFAULT '',
+ win_points INTEGER NOT NULL DEFAULT 3,
+ draw_points INTEGER NOT NULL DEFAULT 1,
+ loss_points INTEGER NOT NULL DEFAULT 0,
  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS groups_ (
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ game_id INTEGER NOT NULL,
+ name TEXT NOT NULL,
+ display_order INTEGER NOT NULL DEFAULT 0,
+ advance_count INTEGER NOT NULL DEFAULT 2,
+ UNIQUE(game_id,name),
+ FOREIGN KEY(game_id) REFERENCES games(id) ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS teams (
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ game_id INTEGER NOT NULL,
+ group_id INTEGER,
+ name TEXT NOT NULL,
+ short_name TEXT DEFAULT '',
+ logo_url TEXT DEFAULT '',
+ institution TEXT DEFAULT '',
+ captain TEXT DEFAULT '',
+ participant_info TEXT DEFAULT '',
+ active INTEGER NOT NULL DEFAULT 1,
+ created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ UNIQUE(game_id,name),
+ FOREIGN KEY(game_id) REFERENCES games(id) ON DELETE CASCADE,
+ FOREIGN KEY(group_id) REFERENCES groups_(id) ON DELETE SET NULL
 );
 CREATE TABLE IF NOT EXISTS matches (
  id INTEGER PRIMARY KEY AUTOINCREMENT,
- sport TEXT NOT NULL CHECK(sport IN ('Mobile Legends','PES')),
+ game_id INTEGER NOT NULL,
+ group_id INTEGER,
  stage TEXT NOT NULL DEFAULT 'Group',
- group_name TEXT DEFAULT '',
  round_name TEXT DEFAULT '',
  match_no INTEGER DEFAULT 0,
  date TEXT NOT NULL,
@@ -23,15 +54,28 @@ CREATE TABLE IF NOT EXISTS matches (
  team_b_id INTEGER,
  score_a INTEGER,
  score_b INTEGER,
- status TEXT NOT NULL DEFAULT 'Scheduled'
-   CHECK(status IN ('Scheduled','Live','Finished','Postponed','Cancelled')),
+ status TEXT NOT NULL DEFAULT 'Scheduled' CHECK(status IN ('Scheduled','Live','Finished','Postponed','Cancelled')),
  notes TEXT DEFAULT '',
  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ FOREIGN KEY(game_id) REFERENCES games(id) ON DELETE CASCADE,
+ FOREIGN KEY(group_id) REFERENCES groups_(id) ON DELETE SET NULL,
  FOREIGN KEY(team_a_id) REFERENCES teams(id) ON DELETE SET NULL,
  FOREIGN KEY(team_b_id) REFERENCES teams(id) ON DELETE SET NULL
 );
 CREATE INDEX IF NOT EXISTS idx_matches_date ON matches(date,time);
+CREATE INDEX IF NOT EXISTS idx_matches_game ON matches(game_id,date,time);
+CREATE TABLE IF NOT EXISTS articles (
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ title TEXT NOT NULL,
+ excerpt TEXT DEFAULT '',
+ content TEXT DEFAULT '',
+ image_url TEXT DEFAULT '',
+ published INTEGER NOT NULL DEFAULT 1,
+ published_at TEXT,
+ created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 CREATE TABLE IF NOT EXISTS admin_audit (
  id INTEGER PRIMARY KEY AUTOINCREMENT,
  action TEXT NOT NULL,
