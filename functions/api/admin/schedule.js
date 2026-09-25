@@ -90,7 +90,9 @@ export async function onRequestPost({request,env}){
     }
 
     const groupsData=groups.map(g=>({id:Number(g.id),teamIds:byGroup.get(Number(g.id))||[]}));
-    const pending=buildPairs(groupsData).filter(p=>!existingPairs.has(p.group_id+":"+key(p.a,p.b)));
+    const pending=buildPairs(groupsData)
+      .filter(p=>!existingPairs.has(p.group_id+":"+key(p.a,p.b)))
+      .sort((a,b)=>a.round-b.round||a.group_id-b.group_id||a.a-b.a||a.b-b.b);
 
     const created=[];
     let cursor=firstWeekday(start,weekday);
