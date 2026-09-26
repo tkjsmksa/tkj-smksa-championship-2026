@@ -52,7 +52,18 @@ export async function onRequestPost({request,env}){
     const weekday=Number(b.weekday);
     const venue=String(b.venue||"").trim();
     const times=Array.isArray(b.times)?b.times.map(x=>String(x||"").trim()).filter(Boolean):[];
-    const skip=new Set(Array.isArray(b.skip_dates)?b.skip_dates.map(String):[]);
+    function normalizeSkipDate(s){
+      const m=/^(\\d{4})-(\\d{1,2})-(\\d{1,2})$/.exec(String(s||"").trim());
+      if(!m)return null;
+      const normalized=\`${m[1]}-\`${m[2]}.padStart(2,"0")}-\`${m[3]}.padStart(2,"0")}`;
+      const d=parseDate(normalized);
+      return d?dateStr(d):null;
+    }
+    const skip=new Set(
+      (Array.isArray(b.skip_dates)?b.skip_dates:[])
+        .map(normalizeSkipDate)
+        .filter(Boolean)
+    );
     if(!gameId)return json({error:"Game tidak valid."},400);
     if(!start)return json({error:"Tanggal mulai tidak valid."},400);
     if(!Number.isInteger(weekday)||weekday<0||weekday>6)return json({error:"Hari tidak valid."},400);
