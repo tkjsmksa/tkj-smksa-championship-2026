@@ -53,9 +53,9 @@ export async function onRequestPost({request,env}){
     const venue=String(b.venue||"").trim();
     const times=Array.isArray(b.times)?b.times.map(x=>String(x||"").trim()).filter(Boolean):[];
     function normalizeSkipDate(s){
-      const m=/^(\\d{4})-(\\d{1,2})-(\\d{1,2})$/.exec(String(s||"").trim());
+      const m=/^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(String(s||"").trim());
       if(!m)return null;
-      const normalized=\`${m[1]}-\`${m[2]}.padStart(2,"0")}-\`${m[3]}.padStart(2,"0")}`;
+      const normalized=m[1]+"-"+m[2].padStart(2,"0")+"-"+m[3].padStart(2,"0");
       const d=parseDate(normalized);
       return d?dateStr(d):null;
     }
