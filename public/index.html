@@ -47,7 +47,8 @@ function renderBracket(){
   const gs=game();
   const groups=D.groups.filter(x=>x.game_id===gs.id).sort((x,y)=>(x.display_order??0)-(y.display_order??0));
   const groupMatches=D.matches.filter(m=>m.game_id===gs.id&&m.stage==='Group');
-  const groupStageComplete=groupMatches.length>0&&groupMatches.every(m=>m.status==='Finished'&&m.score_a!=null&&m.score_b!=null);
+  const expectedGroupMatches=groups.reduce((total,gr)=>{const n=D.teams.filter(t=>t.game_id===gs.id&&t.group_id===gr.id).length;return total+(n*(n-1))/2;},0);
+  const groupStageComplete=expectedGroupMatches>0&&groupMatches.length===expectedGroupMatches&&groupMatches.every(m=>m.status==='Finished'&&m.score_a!=null&&m.score_b!=null);
   const rows=groups.map(gr=>({gr,rows:rowsFor(gs.id,gr.id)}));
   const advance=groupStageComplete?rows.map(x=>x.rows.slice(0,Math.max(0,x.gr.advance_count||0))):rows.map(()=>[]);
   const a=advance[0]||[],b=advance[1]||[],qualified=[...a,...b];
